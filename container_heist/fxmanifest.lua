@@ -1,6 +1,10 @@
 fx_version 'cerulean'
 games { 'gta5' }
 
+author "SkillOneKill"
+description 'Container Heist'
+version '1.0.1'
+
 lua54 'yes'
 
 shared_script {

@@ -25,6 +25,6 @@ Config.Rewards = {
     }
 }
 
-Config.OpenChance = 60 -- Erfolgswahrscheinlichkeit in Prozent
+Config.OpenChance = 75 -- Erfolgswahrscheinlichkeit in Prozent
 Config.Cooldown = 1800 -- Cooldown in Sekunden pro Container
 Config.OpenDuration = 90000 -- Dauer der Öffnung (Millisekunden)

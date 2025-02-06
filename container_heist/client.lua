@@ -29,8 +29,15 @@ RegisterNetEvent('container:breakOpen', function(data)
         return lib.notify({title = 'Fehler', description = 'Dieser Container wurde kürzlich geöffnet!', type = 'error'})
     end
 
-    -- 🎬 REALISTISCHE AUFBRECH-ANIMATION 🎬
     local playerPed = PlayerPedId()
+    local weaponHash = GetSelectedPedWeapon(playerPed)
+
+    -- 🧰 Überprüfen, ob der Spieler die Brechstange als Waffe führt (weapon_crowbar)
+    if weaponHash ~= GetHashKey("WEAPON_CROWBAR") then
+        return lib.notify({title = 'Fehler', description = 'Du brauchst eine Brechstange, um den Container zu öffnen!', type = 'error'})
+    end
+
+    -- 🎬 REALISTISCHE AUFBRECH-ANIMATION 🎬
     lib.requestAnimDict("missmechanic") -- 🏆 Optimierung: Nutzt lib.requestAnimDict für schnelles Laden
     TaskPlayAnim(playerPed, "missmechanic", "work2_base", 8.0, -8.0, Config.OpenDuration, 1, 0, false, false, false)
 
@@ -49,6 +56,8 @@ RegisterNetEvent('container:breakOpen', function(data)
     if success then
         TriggerServerEvent("container:serverBreakOpen", containerIndex)
         lastOpened[containerIndex] = GetGameTimer()
+
+        -- Das Item wird nicht entfernt, weil wir keine Itemabfrage mehr brauchen
     else
         lib.notify({title = 'Abgebrochen', description = 'Du hast die Aktion abgebrochen!', type = 'error'})
     end
