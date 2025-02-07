@@ -3,7 +3,7 @@ games { 'gta5' }
 
 author "SkillOneKill"
 description 'Container Heist'
-version '1.0.1'
+version '1.0.2'
 
 lua54 'yes'
 
