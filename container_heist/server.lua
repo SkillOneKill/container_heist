@@ -1,5 +1,30 @@
 ESX = exports['es_extended']:getSharedObject()
 
+local currentVersion = "1.0.3" -- Deine aktuelle Version
+local resourceName = GetCurrentResourceName() -- Holt den Namen des Skripts
+
+-- GitHub-Infos (Ersetze mit deinen Daten)
+local githubUser = "SkillOneKill"
+local githubRepo = "container_heist"
+local versionURL = "https://raw.githubusercontent.com/" .. githubUser .. "/" .. githubRepo .. "/main/version.txt"
+local scriptURL = "https://github.com/" .. githubUser .. "/" .. githubRepo
+
+-- Funktion zum Abrufen der neuesten Version von GitHub
+PerformHttpRequest(versionURL, function(statusCode, newVersion, headers)
+    if statusCode == 200 then
+        newVersion = newVersion:gsub("%s+", "") -- Entfernt Leerzeichen/Zeilenumbrüche
+
+        if newVersion == currentVersion then
+            print("[^2INFO^7] " .. resourceName .. " ist aktuell! (Version: " .. currentVersion .. ")")
+        else
+            print("[^3UPDATE VERFÜGBAR^7] Eine neue Version ist verfügbar: " .. newVersion)
+            print("[^3UPDATE VERFÜGBAR^7] Lade die neueste Version hier herunter: " .. scriptURL)
+        end
+    else
+        print("[^1FEHLER^7] Konnte die Version nicht abrufen. Bitte überprüfe die GitHub-URL!")
+    end
+end, "GET", "", {})
+
 RegisterServerEvent("container:serverBreakOpen")
 AddEventHandler("container:serverBreakOpen", function(containerIndex)
     local xPlayer = ESX.GetPlayerFromId(source)
